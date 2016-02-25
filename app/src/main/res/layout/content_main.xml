@@ -23,7 +23,7 @@
             android:gravity="center"
             android:text="@string/nd_apps"
             android:textColor="@color/colorAccent"
-            android:textSize="24dp" />
+            android:textSize="24sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
