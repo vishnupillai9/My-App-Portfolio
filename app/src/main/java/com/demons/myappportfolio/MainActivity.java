@@ -1,18 +1,18 @@
 package com.demons.myappportfolio;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    final String POPULAR_MOVIES_PACKAGE_NAME = "me.swiftly.popularmovies";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +21,29 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        int[] buttonIds = { R.id.movies, R.id.scores, R.id.library, R.id.bigger, R.id.xyz, R.id.capstone };
+        setLaunchActionForButton(R.id.movies, POPULAR_MOVIES_PACKAGE_NAME);
+
+        int[] buttonIds = { R.id.scores, R.id.library, R.id.bigger, R.id.xyz, R.id.capstone };
 
         // Set OnClickListener for each button
         for(int id: buttonIds) {
             setActionForButton(id);
         }
+    }
+
+    private void setLaunchActionForButton(int id, final String packageName) {
+        Button button = (Button) findViewById(id);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
+                if (intent != null) {
+                    startActivity(intent);
+                } else {
+                    Snackbar.make(v, "You don't have this application installed.", Snackbar.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     private void setActionForButton(int id) {
@@ -38,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT).show();
+                Snackbar.make(v, toastText, Snackbar.LENGTH_SHORT).show();
             }
         });
     }
