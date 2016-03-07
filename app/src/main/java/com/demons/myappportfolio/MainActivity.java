@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 if (intent != null) {
                     startActivity(intent);
                 } else {
-                    Snackbar.make(v, "You don't have this application installed.", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(v, getString(R.string.app_not_installed), Snackbar.LENGTH_LONG).show();
                 }
             }
         });
@@ -49,13 +49,13 @@ public class MainActivity extends AppCompatActivity {
     private void setActionForButton(int id) {
         // Get the text of the button
         final String buttonText = ((Button) findViewById(id)).getText().toString();
-        final String toastText = String.format("This button will launch %s!", buttonText);
+        final String snackbarText = String.format(getString(R.string.button_will_launch), buttonText);
 
         Button button = (Button) findViewById(id);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, toastText, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(v, snackbarText, Snackbar.LENGTH_SHORT).show();
             }
         });
     }
